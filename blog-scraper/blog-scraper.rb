@@ -18,7 +18,6 @@ File.open("blog.txt", 'r') do |file|
         words_popularity_hash[word] += 1
         words_hash[word] << line_words_array[word_index+1]
       elsif words_hash[word]
-        # words_hash[word] << ["\n"]
         words_popularity_hash[word] += 1
       else
         words_hash[word] = [line_words_array[word_index+1]]
@@ -42,30 +41,27 @@ words_hash.each do |word, following_words|
       probabilities_hash[word] = {"#{following_word}" => 1}
     end
   end
-  all_words_array << word
+    all_words_array << word
 end
 
-words_popularity_hash.each do |word, count|
-  count.times do
-    randomizer_words_array << word
-  end
-end
+# words_popularity_hash.each do |word, count|
+#   count.times do
+#     randomizer_words_array << word
+#   end
+# end
 
-random_word = randomizer_words_array.sample
+random_word = all_words_array.sample
 
 print "#{random_word} "
 500.times do
-  if probabilities_hash["#{random_word}"]
-    probabilities_hash["#{random_word}"].each do |following_word, probability|
-      probability.times do
-        randomizer_words_array << following_word
-      end
+  probabilities_hash[random_word].each do |following_word, probability|
+    probability.times do
+      randomizer_words_array << following_word
     end
-  else
-    puts "\n"
   end
   random_word = randomizer_words_array.sample
   print "#{random_word} "
+  randomizer_words_array = []
 end
 
 # Is it necessary to explicitly list all probabilities of 0????
