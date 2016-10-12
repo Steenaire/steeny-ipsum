@@ -18,7 +18,7 @@ File.open("blog.txt", 'r') do |file|
         words_popularity_hash[word] += 1
         words_hash[word] << line_words_array[word_index+1]
       elsif words_hash[word]
-        words_hash[word] << ["\n"]
+        # words_hash[word] << ["\n"]
         words_popularity_hash[word] += 1
       else
         words_hash[word] = [line_words_array[word_index+1]]
@@ -34,12 +34,12 @@ words_hash.each do |word, following_words|
     float_holder = 1.to_f/following_words.length.to_f
     if probabilities_hash[word]
       if probabilities_hash[word][:"#{following_word}"]
-        probabilities_hash[word][:"#{following_word}"] += BigDecimal.new(float_holder, 4)
+        probabilities_hash[word][:"#{following_word}"] += 1
       else
-        probabilities_hash[word][:"#{following_word}"] = BigDecimal.new(float_holder, 4)
+        probabilities_hash[word][:"#{following_word}"] = 1
       end
     else
-      probabilities_hash[word] = {"#{following_word}": BigDecimal.new(float_holder, 4)}
+      probabilities_hash[word] = {"#{following_word}": 1}
     end
   end
   all_words_array << word
@@ -51,9 +51,20 @@ words_popularity_hash.each do |word, count|
   end
 end
 
-first_word = randomizer_words_array.sample
+random_word = randomizer_words_array.sample
 
-puts first_word
+print "#{random_word} "
+500.times do
+  if probabilities_hash[random_word]
+    probabilities_hash[random_word].each do |following_word, probability|
+      probability.times do
+        randomizer_words_array << following_word
+      end
+    end
+  end
+  random_word = randomizer_words_array.sample
+  print "#{random_word} "
+end
 
 # Is it necessary to explicitly list all probabilities of 0????
 ###############################################################
@@ -70,7 +81,7 @@ file = File.open("word_breakdown.txt", 'w')
 probabilities_hash.each do |word, probabilities|
   file.write("#{word};\t")
   probabilities.each do |following_word, probability|
-    file.write("#{following_word}: #{probability.truncate(4).to_s('F')}, ")
+    file.write("#{following_word}: #{probability}, ")
   end
   file.write("\n")
 end
