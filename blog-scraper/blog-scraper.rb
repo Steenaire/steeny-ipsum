@@ -54,7 +54,7 @@ end
 
 random_word = all_words_array.sample
 
-print "#{random_word} "
+print "#{random_word.capitalize} "
 500.times do
   if probabilities_hash[random_word]
     probabilities_hash[random_word].each do |following_word, probability|
@@ -68,6 +68,7 @@ print "#{random_word} "
   else
     puts "\n"
     random_word = all_words_array.sample
+    print "#{random_word.capitalize} "
   end
 end
 
