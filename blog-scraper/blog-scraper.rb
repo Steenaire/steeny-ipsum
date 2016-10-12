@@ -33,13 +33,13 @@ words_hash.each do |word, following_words|
   following_words.each do |following_word|
     float_holder = 1.to_f/following_words.length.to_f
     if probabilities_hash[word]
-      if probabilities_hash[word][:"#{following_word}"]
-        probabilities_hash[word][:"#{following_word}"] += 1
+      if probabilities_hash[word]["#{following_word}"]
+        probabilities_hash[word]["#{following_word}"] += 1
       else
-        probabilities_hash[word][:"#{following_word}"] = 1
+        probabilities_hash[word]["#{following_word}"] = 1
       end
     else
-      probabilities_hash[word] = {"#{following_word}": 1}
+      probabilities_hash[word] = {"#{following_word}" => 1}
     end
   end
   all_words_array << word
@@ -55,12 +55,14 @@ random_word = randomizer_words_array.sample
 
 print "#{random_word} "
 500.times do
-  if probabilities_hash[random_word]
-    probabilities_hash[random_word].each do |following_word, probability|
+  if probabilities_hash["#{random_word}"]
+    probabilities_hash["#{random_word}"].each do |following_word, probability|
       probability.times do
         randomizer_words_array << following_word
       end
     end
+  else
+    puts "\n"
   end
   random_word = randomizer_words_array.sample
   print "#{random_word} "
