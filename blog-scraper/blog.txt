@@ -35,3 +35,809 @@ You can put creatures in a “peace band” so that they will ignore any battle-
 All in all it is a wonderful, addicting, hilarious game and I would highly recommend it!
 
 I only have one complaint about the game, which is that they happen to use a somewhat nasty ableist slur A LOT. Like, a lot a lot. Especially on any level with the dwarves as the main hero-enemy. I felt kind of embarrassed to play it whenever the narrator would say the m-word over and over and over, that I actually turned my sound way down on those levels because it made me feel really weird. I feel like they could have just as easily called the dwarves “half pints” or “short stuff” or something and it would have had the same impact, and I think it would have been much funnier. So if you are bothered by things like that, keep this in mind if you’re interested in playing the game.
+
+Well, another 24 Hour Comic Book Day has come and gone! I finished another comic book. I feel like it started pretty strong, but I couldn’t think of a way to end it.
+
+I was spending too much time thinking of an ending and saw the time just ticking away so… I just gave it an awful ending so I would stop spending time thinking about it.
+
+Oh, well. At least I finished!
+
+After using countless Ruby Gems, I’ve finally started making my own. The idea is pretty intimidating, but it actually isn’t so different to making your own scripts or Rails apps since Bundler handles almost everything for you.
+
+To set up all the basics for a Ruby Gem (as well as initialize a git repository for it), simply run
+
+$ bundle gem your_gems_name
+from your terminal and you’re off to the races!
+
+This will create (among other things) a gem spec file, which is where you list all your dependencies (if any), as well as information (including version) about your gem.
+
+The real meat of your gem (the logic, etc) will go in /lib/ and should all be namespaced for your gem to avoid conflicts with any classes/methods that your users might have written themselves (or even ones you have written yourself for your own apps).
+
+To install your gem to your local machine to test it out and see if it does what you want it to do, simply run
+
+$ rake install
+from your terminal while inside your gem’s directory. If/when you are ready to release your (hopefully functioning) gem to RubyGems.org, run
+
+$ rake release
+and there it goes! Be sure to appropriately change the version any time you make changes before releasing again, to avoid breaking the gem for people that may have installed previous versions and written all their code based on that.
+
+I decided to start out simply enough, just to get the gist of everything, and made an API wrapper for the SF Parks API (the API itself is at https://data.sfgov.org/api/views/z76i-7s65) because its API is formatted really weird and is deeply nested and hard to traverse. I took it and navigated all the weirdness and made it into a PORO for ease of use in a Rails app. So now, if anybody wants to use the SF Parks API, they can do so quickly and easily.
+
+This got me all fired up about making my own gems, so I’ve already begun work on a rating gem, since I’ve personally noticed a dearth of rating gems out there. There’s ratyrate, but that requires Devise (which I don’t use), so I thought maybe other people might want a rating gem that does not use Devise. I’ve already written my own rating system, so all that remains is to transfer my existing system into the gem structure so others can install it. Hooray!
+
+So I finally installed Leaf Spy, because everybody in the Leaf community has been going on and on about how I need to have it. The reason I had been putting it off for so long is because I needed to buy a blue tooth plug in for my on board computer, and ugh that’s just another step. For that, I picked the Konnwei KW902.
+
+It is a lot of fun, and has been relatively informative, and I can see how it could be helpful for very long trips. For example, I discovered that the state of charge meter seems to tick-down at random intervals:
+
+At “fully charged”, the state of charge was 92%. Makes sense, because I had read that Nissan built in safeguards that don’t actually allow you to charge to 100%. I lost the first bar after driving it down to 82%. Then I lost the next bar at 77%. Then I lost the next bar at 75%. Then I lost the next bar at 66%. It didn’t seem to make a lot of sense. Note: when fully charged, the state of charge meter has 12 bars, so each “bar” disappearing should (ideally)  indicate an ~8% change.
+
+So I feel like there are only a few choices for what is going on here:
+
+Leaf Spy’s SOC meter is inaccurate
+Nissan’s SOC meter is innacurate
+Both SOC meters are innacurate
+To be honest, I couldn’t say which is the correct answer, as I only used this app while I was driving home from work, so hardly a long trip pushing it to the limits. You gotta figure, Nissan’s SOC has to be pulling its info from the same computer that Leaf Spy is, so it makes no sense that they would be so different. But, oh well.
+
+Another thing is, Leaf Spy has a very, very homemade feel. Like, very homemade. It is a ginormous pain getting it up and running. I understand that blue tooth pairing is, by definition, a horrific experience but pairing Leaf Spy will make you question all your life’s choices.
+
+I found what works for me, is that I have to change my Leaf Spy port from 1 (which is what I use to listen to audiobooks) to “secured.” Many sources say that changing the port to 16 will work, but for me with my Nexus 5 and my audiobooks, 16 did not work at all. Only “secured” worked. Then, I had to make sure the device is on and I could “see” it in my blue tooth pairing screen on my phone, and then pair it (this part only needs to be done once, the first time). Once paired, I had to turn off my bluetooth, then open Leaf Spy and allow Leaf Spy to turn my blue tooth back on (it only works if I let it do this), and then 70% ish of the time, Leaf Spy pairs and I’m good to go! Sometimes, yes, I go through all the steps and I get bupkis. But, as I said, it is very home made.
+
+I get it, it is a labor of love, and as I understand it is just one guy building and maintaining this app. And it is super cool when it works! But it is a massive pain in the butt to get it going. I haven’t used Leaf Spy on any massive trips yet, but I’ve already taken my Leaf on several long road trips without Leaf Spy – just going on my general feeling for how much further it can go, and I haven’t yet turtled or ran out of juice or anything. My gut method has been working pretty well for me, surprisingly. But, this app and methodology is much beloved by the community, so the next time I road trip I’ll use it to see if it helps.
+
+The main things I learned from Leaf Spy are:
+
+My battery has 80% capacity remaining (which I had already guessed based on the mileage I was getting coupled with the battery capacity meter)
+My tire pressure was low, so I filled them back up (ironically, I had noticed a gradual decline in my mileage for a month or so until I installed Leaf Spy, and I saw that I had low tire pressure. The very next day, my dashboard low tire pressure warning came on. So, Leaf Spy could alert you to the exact tire pressure before this happens, but in my case this didn’t exactly happen)
+
+There are a lot of things to love about Rust, not least of which are its excellent documentation and package handler (Cargo). But I also really like the error handling.
+
+In Rust, you can choose to handle the error via having the program panic (which will abort the entire program), but this is generally considered something best avoided – especially if you are writing a program that other people will be using.
+
+For example, if you had this in your code, and you passed in a number lower than n or greater than 10, you would not get a very good error message and it would be annoying.
+
+An exception would be if the error is raised by something that should not happen and therefore indicating an actual bug in the program (and not simply the user typing the wrong thing, etc). In this case, you would want your program to panic and stop everything – because there is something way wrong that you didn’t foresee (and so probably could not have written a specific case for it).
+
+You can unwrap something, which will either return the result of a computation or panic. But this, of course, runs into a lot of the same annoying things as panic.
+
+You can also specify that, if you run into an error, for the program to simply continue. For example:
+
+If the person types in something that is a number, then it will be compared to the randomly generated number and told whether they have won or not. But if the person types in something that is not a number, then the the program will continue and the rest of the loop will simply skip and then ask the user to enter another number.
+
+And there are many more ways to handle errors in Rust. You can write error messages for what happens when no arguments were passed when they were expected, or to display a different error if the argument fails to parse (and therefore is not the appropriate type), or to simply proceed as normal if everything checks out:
+
+And there are many more ways to write helpful error messages and to handle the errors in such a way that your program behaves the way it should (which includes panic-ing when needed). This is just another part of what makes Rust so powerful and such a pleasure to work with.
+
+I’ve been continuing on down memory lane with Dungeon Keeper II, and have almost finished with the campaign. I just finished storming the Faerie Fortress.
+
+It has been a lot of fun reliving the campaign. Soon now, I will get to the Dark Angel part in the campaign!
+
+I’ve returned to my Google Location History Data (the previous installment of which is here), to implement something I had been thinking about for a while: setting a maximum time threshold for how far apart (temporally) two coordinate pairs (of the same activity type) can be and still be considered part of the “same trip.” Figuring out this threshold isn’t as obvious as I was originally thinking, but I still think I got something meaningful out of this exercise. I think a spread of 10 minutes obviously encompasses the same trip, but what about an hour? In many cases, likely not.
+
+Recall that of ~1,000,000 data points (over 3 years), only 288,922 had any activities associated with them. This means, for the 1,000,000 data points, I have (on average) one point for every 31 seconds. For the 288,922 activity-associated data points, I have (on average) one point for every 109 seconds. So, the threshold will have to at least be 109 seconds, but most likely higher.
+
+So I futzed around with the threshold a lot to see how that changed the results. I think 15-20 minutes is a pretty good threshold without allowing a ton of noise in, but the average miles/day for all the activities still seems pretty low with that threshold. The true number might lie somewhere closer between 20m and 1h. Or maybe I just don’t go as far as I imagine I do!
+
+I wrote the threshold decider stuff in Ruby, because I had initially written the “sort-by-activities” script in Ruby (this was before I knew I was going to use Python for Basemap etc). And I had already written the Haversine script in Ruby, and I wanted to reuse that. Oh, well. Maybe one day I will normalize everything to be in Python, for consistency’s sake.
+
+This is the meat of the threshold decider. Pretty simple. Almost exactly identical to the old Haversine distance calculator I wrote to get me aggregate distances, except the distances only get calculated/added if they are within the temporal threshold.
+
+This is pretty much the context I have it in right now, with the file-reader and human-friendly-displayer (et al) to quickly display some of the stats that I am interested in seeing:
+
+So! Let us see some of my results I got with the threshold set to 1,000 seconds.
+
+Walking:
+
+The time period was 2.8 years!
+
+The total distance gone over that full time period was 5543 kilometers, or 3445 miles!
+
+You spent 1864 hours doing it!
+
+That is an average of 3.37 miles per day!
+
+You’ve spent 7.6% of your time doing this activity!
+
+You’ve averaged 2mph!
+
+Bicycling:
+
+The time period was 2.79 years!
+
+The total distance gone over that full time period was 3047 kilometers, or 1894 miles!
+
+You spent 297 hours doing it!
+
+That is an average of 1.86 miles per day!
+
+You’ve spent 1.22% of your time doing this activity!
+
+You’ve averaged 6mph!
+
+In a Vehicle:
+
+The time period was 2.8 years!
+
+The total distance gone over that full time period was 31394 kilometers, or 19511 miles!
+
+You spent 1299 hours doing it!
+
+That is an average of 19.12 miles per day!
+
+You’ve spent 5.3% of your time doing this activity!
+
+You’ve averaged 15mph!
+
+All sounds pretty reasonable to me! Except maybe the speeds for all three seem pretty low. Likely because I am already including lots of time periods of me not moving. But the distances/day seem like roughly what I would expect to see. Anyhow, not much I can do with this now except futz with the threshold and see what seems most reasonable.
+
+I’ve recently been playing around with the Google Maps Javascript API in my Rails web  apps to make some simple maps. Google’s documentation on this is very very good, so in most cases I’d recommend you start there to figure out how to make the map you want. Nonetheless, I thought I’d write up a quick tutorial for making a very simple map, making/displaying markers, and automatically re-positioning the map based on multiple location markers (from the perspective of using it in a Rails app).
+
+I’ll start with Google’s Simple Map example.
+
+Remember to set the styling for #map to be whatever size you want the div to be in your stylesheet, because this is what will determine the size of your map.
+
+The first obvious place to make this map dynamic is the lat, lng. Presumably you will have a variable declared in the controller that has a latitude and longitude associated with it, or perhaps you even have latitude and longitude variables available. In my case, I have @contact defined in the show action of my contacts controller as an instance of the contact class. Each contact instance has a latitude and longitude associated with it, based on the address input by the user (using Geocoder to look them up); from the create action:
+
+So on the show view, the latitude and longitude would be accessible via @contact.latitude and @contact.longitude (respectively). And be sure to define your Google API key in the environmental variable hash, so you don’t go pushing that key up anywhere you wouldn’t want it to go. Actually, better go do that first.
+
+Now you can put in your environmental variable for your API key, as well as embedded Ruby for your latitude and longitude:
+
+That will make a simple map centered on your latitude and longitude. But obviously, what we all really want is a marker. So, let us put in a marker!
+
+Feel free to play around with the zoom until you get it to where you like it. I find that 12 is pretty good for a single marker, but your tastes/needs may vary. The higher the number, the higher the zoom. So zoom: 1 will basically give you a map of the whole world. Which, maybe you want!
+
+But now, what if you have a bunch of markers, and you want to adjust the center/zoom based on them? Obviously you wouldn’t be able to just use one marker’s latitude and longitude to determine the center anymore. Well, there is a simple way to do this, too! All you need to do is define a LatLngBounds variable, and then use the extend and fitBounds methods. For this example, I put the map in the contacts index, so there would be multiple lat, long coordinates to play with:
+
+Et voila! It really is that easy. And now you have a map that will re-center/re-zoom to fit/show all the markers on it. If you want to force the zoom to a certain level, and only let the centering change, all you have to do is define the zoom anywhere after you use the fitBounds method on your map. I don’t really like forcing the zoom, though, I find I like it best when the map finds it own zoom.
+
+Oh, yea, and this is what happens when you use the Faker gem to randomly generate a bunch of latitudes and longitudes for a bunch of randomly generated contacts… you get contacts in the middle of the ocean, lol:
+
+But I got sick of manually entering actual addresses, so now I have ocean contacts. This is the generally-accepted tradeoff.
+
+Doc knows how obsessed I am with all things medieval, and he was so kind as to buy some tickets to a Medieval Feast event! I got so excited, I made a double hennin and everything.
+
+This got me super obsessed with Medieval food, and soon I stumbled upon the Boke of Gode Cookery, and in particular the recipe for Sambocade (elderflower cheesecake). So of course, I had to make it.
+
+But, like, of course I had to first make cheese curds! Because the recipe explicitly says the first step is the strain the whey from the curds.
+
+I would recommend serving it with some caudell drizzled on top.
+
+Note that, I didn’t care about improving the recipe or adding new-fangled things to better suit a modern palate. All I cared about was that I would eat a thing that was literally what a medieval person ate at least once. Because that’s who I am.
+
+This led me into some trouble trying to interpret the recipe. The recipe appears to say to strain the whey from the curds and put them into the pie shell. THEN, add the egg whites and elderflowers and rose water. But the “modern translation” says to mix everything together until smooth, and pour the whole thing into the pie shell. So, which is it? Is this dish more like a cheesey crust with a meringue on top? Or is it more like a modern version of a cheesecake, with one layer of a smooth cheesey homogeneous mix?
+
+Ultimately, I decided to go with what the “modern translation” said, figuring that medieval authors generally didn’t have the same level of explicit instruction that we do today, and that maybe the translators know better than I do what the intent was. But sometimes I wonder!
+
+So I’ve finally decided to get a Mac. “But Steen!” my friends say, “I thought you were Mrs. All-Linux-All-The-Time!”
+
+Well, I still am! Even though I still like others better, to be honest Macs also essentially run on a Linux distro.
+
+Initial thoughts:
+
+It looks like I will have to manually install Basemap to get it working on the Mac so I can do this on it, as even Homebrew doesn’t have it. Which isn’t so bad, but since I already have a working machine with Basemap set up, it is easy for me to slide into laziness and not manually install it on the Mac. But I’ll probably do it eventually.
+Macs have `say`
+MACS ARE MADE OF METAL. Nothing drives home the reality of how often you use your laptop without pants quite like getting a metal laptop.
+I only use the terminal on my Mac because I cannot figure out the GUI for the life of me. Like, what the heck is going on there? At least the terminal is familiar!
+But then again, there’s this:
+
+That is legitimately terrifying :/
+
+I’ll be sure to continue using my other machine for any sort of bioinformatic work.
+
+But it is not all bad, I always have fun getting to know a new computer. I’m looking forward to seeing how this all pans out.
+
+While messing around with gems for Ruby, and in particular Dark Sky’s weather forecast API, Forecast.io, I came across an object type that I hadn’t used before: the Mash.
+
+It seems like a deeply-nested thing, and I couldn’t really see an obvious way to iterate over it, so I figured I’d share the process that I used to unwrap it.
+
+In order to figure out exactly what Forecast.io was returning in the first place, I first used the class method:
+
+which returned:
+
+Hashie::Mash
+
+This is how I figured out it was a Mash in the first place. I then converted the Mash to a hash:
+
+and was then able to see what this resulting hash was composed of, again using the class method:
+
+And so I was able to discover that all the forecast data that I wanted to access was kept in an array, as a value paired to the key called “data.” “Summary” contains today’s weather summary only, and “icon” contains today’s weather icon only. As we will see, those data are also stored for today’s date in the forecast, so we don’t even need to use them for the current day.
+
+But what is each element in this array?
+
+Turns out the data is in an array of 8 hashes – today’s weather plus the seven day forecast. Each hash represents a different day. Each hash contains everything from ozone to pressure to sunset times, and feel free to poke around in there. For now, all I’m interested in is the temperature maximum and minimum, along with the summary.
+
+And that successfully pulled everything out and displayed it nice and pretty, so this was one way of traversing the Mash.
+
+In the end, I was able to make a quick little script to pull out forecast data for a location input by a user using Forecast.io for getting the forecast and geocoder for looking up the latitude/longitude of a location:
+
+For example, if you input “san francisco,” you get an output that looks like this:
+
+Hooray!
+
+Although I figure, there’s got to be a less roundabout-way of getting data out of a Mash (without converting them into hashes), because otherwise why would they even exist? Thus, further research is called for on my part.
+
+This is what Saturday nights look like for us.
+
+Our friend Tomas lent us a copy of Wrath Of Ashardalon. Doc and I have been playing some games and enjoying it.
+
+We provided the wine ourselves.
+
+I’ve started playing Dungeon Keeper II again. I looked into it, and you don’t have to run it on a DOS emulator anymore (yay), because GOG Games apparently buys up old abandonware and keeps it current so it can run on modern systems. I recall that before, even from GOG Games, DKII would crash constantly and was absolutely unplayable. Plus they had a patch to update it to the “latest” version of the game, which also happened to prevent Dark Angels from spawning. Ugh. So I had given up on that for a while.
+
+For whatever reason, I looked into it again this weekend, and found that from GOG Games it is now only $2.39 to buy DKII; plus, I saw in the comments that the game supposedly was updated to run on Windows 7 and Windows 8. At that price, I figured, what the heck. I’ll buy it and see if what they say is true. I wouldn’t mind being out $2.39 if it was still completely unplayable.
+
+So I bought it, and it took a minor bit of tweaking around to get it running on Windows 10 (which nobody claimed it could run on, so this is not surprising), but it wasn’t too bad. Pretty much all I had to do was enable DirectPlay on Windows 10, which you do in Programs and Features by enabling “Legacy Components” in the list of Windows Features to turn on/off, and then enabling “DirectPlay” in the drop-down menu under “Legacy Components.” Et voila!
+
+I got it up and running, and – no crashes! Everything was smooth and perfect. I played it for approximately 1,000,000 hours and it never crashed or lagged once.
+
+But, after approximately 1,000,001 hours of gameplay, I finally discovered that one of the old problems were still there to haunt me. No Dark Angels. Dun-dun-duuuuuhhhnn. Serves me right for doing the campaign first, even though all I wanted to do all along was My Pet Dungeon. If I had started with MPD, I would have noticed this right away.
+
+It didn’t matter if my whole dungeon was nothing but temples, I wouldn’t get a Dark Angel. I might not have noticed, if not for the fact that suddenly a Maiden (dryder) entered my dungeon. I have a deep-seated association with Maidens and the glitches associated with the patch, since they were first introduced in the anti-Angel patch. UGH. I almost quit and stopped playing right then and there. What is there left to aspire to, if you cannot even get Dark Angels?
+
+Fortunately, I did a bit of Googling, and found this site that outlines how to correct the problem caused by the patch, and even provides the necessary files (from the old, non-patched version) to do so. Phew!
+
+As you can see in the above screenshot, after replacing those files, you can now have a dungeon in which Maidens and Dark Angels coexist.
+
+And yes, Warlocks are my favorites forever and ever, which is why I always must have a gillion of them.
+
+While I was researching more ways to visualize my Google Location History, I ran across Beneath the Data’s excellent post on exactly that. I thought I’d start with trying to replicate what Tyler had done (because his figures are way prettier than the ones I’ve made thus far), and then doing my own thing from there. Little did I know that this would send me down some giant GIS/shapefile/geography rabbit hole.
+
+I have to be honest, my main takeaway from the Beneath the Data post was that you could download shapefiles and use those to make your figures instead of the default world stuff from Basemap that I had been using. I’ll also admit that, until this point, I thought the Basemap’s drawmapboundary(), drawcoastlines(), drawcountries(), etc were super cool. Not as cool as using some super detailed and specific shapefile, though!
+
+I immediately went to download a bunch of shapefiles of San Francisco, California, etc. I got obsessed with Shapefiles. I saw a bunch used for ecological studies of the bay, but (though I was sorely tempted) I did not download those. Unfortunately, this is where I hit my first snag. Apparently, Seattle uploads shapefiles with WGS84 coordinates. San Francisco, alas, does not. Anywhere. Ever.
+
+There is a boundless sea of vector files available for SF, but no WGS84 coordinates to be had. I researched for an embarrassing number of hours of how to convert to WGS84 and trying to figure out if they were calculations I could automate, and how exactly the x,y coordinates for shapefile vectors were calculated. I even installed QGIS because somebody said that you could save a layer as WGS84 through there. Well, I couldn’t get that to work. Maybe it is due to my inexperience with GIS and shapefiles, or maybe it is a function that QGIS doesn’t have anymore. I don’t know.
+
+Finally, I found out that gdal has a super easy way to convert shapefiles to GeoJSON. It is literally just one command. PHEW. At last, I could download any Shapefile I wanted, and instantly convert them to get WGS84 coordinates if they didn’t already have them. I went with this San Francisco Zip Codes shapefile, and converted that.
+
+Of course, immediately after I figured out that gdal has this functionality, I found a California County shapefile that already had it in WGS84 coordinates, no conversion necessary. ISN’T THAT ALWAYS THE WAY.
+
+Anyhow, I spent so much time learning about maps and shapefiles, that I haven’t yet done anything beyond simply replicating what Tyler did, but with my own data. But now that I’ve gotten all that out of the way, making the visualizations that I want will be the next step.
+
+So I’ve been doing some more investigating of my Google Timeline Data here and there (as I started writing about here).
+
+After my last post, a friend of mine pointed me towards the Haversine formula for calculating distance between two sets of lat, long coordinates and with that I was able to calculate distances on a day-by-day basis that were consistently close to Google’s estimations for the days. Encouraged, I then moved on to calculating distances on a per-year basis, and that was fun. I got what seemed reasonable to me:
+
+Between 5/22/15 and 5/22/16 I went 20,505 miles
+
+Between 9/20/2013 and 5/22/16 I went 43,434 miles
+
+Recall that these are for every sort of movement, including airplanes. So you can see my average miles/day went way up recently, due to a few big recent airplane trips. So if the numbers seem high (~60 miles a day, ~45 miles a day), this is why.
+
+But then I wanted to visualize some of the data. I decided to use matplotlib to plot the points because it is easy to use and because Python has an easy way to load JSON data.
+
+So I ended up breaking down the points by the assigned “activity.” True to my word, I only considered the “highest likelihood activities,” and discarded all the other less likely ones. To keep it simple.
+
+You may recall that I had a total of 1,048,575 position data points. Well, only 288,922 had activities assigned to them. So just over a quarter. Still, it is enough data to have a bit of fun with.
+
+Of those 288,922 data points with activity, it turns out that there were only a total of 7 different activities:
+
+still
+unknown
+onBicycle
+onFoot
+tilting
+inVehicle
+exitingVehicle
+
+The first obvious thing to do was to sort by activity type and then plot the  coordinates segregated by activity type.
+
+Note that, at the time, I wrote a script which saved all the different activity types into their own CSV, because I wanted to look at them and play with them individually. And I then decided to load these CSV files into my script for plotting – because they were there. Note that, if I went back and did it again, I’d probably not bother with the CSV intermediary, and just go straight from the geoJSON file.
+
+And in this way I was able to see the different activities plotted onto Basemap’s default map thing:
+
+I also plotted the other categories – including the mysterious “tilting,” but I couldn’t really discern any sort of meaning from those. They just looked like all the points from everywhere I’ve ever been, and were therefore not very meaningful. Not like the dramatic differences between the points and obvious routes for biking, on any sort of vehicle, or walking. So, there’s no need for you to see those.
+
+I’d say this was a success. So my next question is to figure out how much time I spend doing each activity. And how much time I spend in each place. I’ll have to think about it a bit on how to calculate the time. All those points with no activity associated with them have me concerned that it won’t be very straightforward to just subtract the timestamps to get ΔT. It could be the case that in the “no activity” points, I had ended up doing completely different things, and then returned to the original activity (in which case the calculated ΔT would be incorrect). But, then again, it is probably very likely that all those “no activity” points actually are the same activity if they are bookended by it. Hmm.
+
+So now I’m wondering if, given that a time point is uploaded every 60 seconds, I should just say 1 timepoint = 60 seconds? That doesn’t seem quite right to me, but I’ll work it out for a smaller data set and see if that even comes close to accurate. I’ll keep thinking about it, but if anybody has any suggestions on how to get around this problem, feel free to let me know!
+
+I really love the data collected by Google Timeline, and I have fun going through it. But some of the most obvious data aggregates are not available! You cannot get how many miles you’ve biked this year, or how many hours you spent at your office, or how many hours you’ve spent walking, etc. You can see those stats on a day-per-day basis, which I’ll admit is interesting, but I usually already have an instinctual idea of I’ve done on a day-by-day basis. I’d like to imagine that I’d be totally surprised by what my stats would be for a full year.
+
+So I downloaded my raw data from Google Takeout to try and play with, and it turns out to be one humongous geoJSON file. But it seems that it is laid out in the format of each unique timestamp taken, with all the associated data for that point. In most cases, you just get timestamp, latitude/longitude (E7), and accuracy.
+
+But sometimes there’s a list of “activities,” with Google’s “confidence” that the activity listed was the one… being done. They seem to always add up to 100%, if you assume that “on foot” is the same as “walking,” but it isn’t clear to me why both get listed in those cases
+
+This much is pretty obvious. But then you get activities like “tilting” and other weird things.
+
+Sometimes you get an associated velocity, altitude, and heading. But not usually. Note: I haven’t figured out yet whether the velocity is in kmph or mph.
+
+So, obviously I’d have to do some calculations based on the latitude and longitude to get data on distances. Which I haven’t done. So I guess I’ll probably just consider the timestamps that have types associated, and for simplicity’s sake I’ll most likely end up only considering the one with the highest “confidence.” With that method, it would be pretty easy to calculate total times. Distances… not as easy, mostly because I haven’t worked with latitudes and longitudes very much. But I’m sure there’s some module out there or something for handling that, so I probably won’t have to learn too much about it ;)
+
+All I’ve done with my data thus far was convert all the timepoints with associated lat/long into human dates with lat/long that are not… E7. So now I have 1,048,575 lines formatted like this
+
+2016-05-22 T14:58:35-07:00    37.7570186, -122.4204018
+
+All the way back to
+
+2013-09-20 T08:18:54-07:00    37.7650828, -122.4172515
+
+Which is the first timepoint I have in my Google Location History.
+
+This format makes it super easy for me to quickly generate maps like
+
+Or even overlays of multiple days, etc. Which, I realize, is… baaaasically exactly what I can already get from Google Location History through my Timeline.
+
+But! My next step is to calculate how many hours per year were spent doing each activity (walking/biking/driving/etc). There will obviously be far fewer than 1,048,575 timepoints for which there is activity data associated, because most timepoints don’t have any activity.
+
+I haven’t started thinking about the mileage counter yet, so if anybody has any suggestions for handling latitude/longitude points and calculating mileage from those, I guess feel free to let me know. Otherwise, I’ll just let you all know what stats I come up with.
+
+Update 6/5/2016:
+
+My ongoing saga of Google Location History data continues here…
+
+This weekend, Doc and I spent almost the full weekend in West Marin.
+
+We went to a dinner event at Heiðrún Meadery featuring the food of Fine & Rare paired with Heiðrún meads. It was pretty magical having such a meal in Heiðrún’s gardens, surrounded by bees floating around and flowers everywhere. At night we even got to roast marshmallows over a fire!
+
+Since we were anticipating drinking a lot (since it was a mead event, after all), we had also booked a room at Ligonberry Farms, where they raise sheep and alpaca for their wool and fiber making! This way we didn’t have to drive back in such a state. This was also quite relaxing and magical.
+
+Then on Sunday, we did a short ~5 mile hike in Point Reyes National Seashore. And we even got back to The City on time for Doc to give his photography talk!
+
+I just discovered that Magic School Bus is available on Netflix. I probably still have every episode memorized from my childhood, and yet I couldn’t help but watch a couple of them again! It definitely brought back memories. This was a formative part of my early years!
+
+Plus I still love cartoons way too much, I’ll admit it.
+
+Ugh, so just as the weather was getting nicer and it was becoming an increasingly attractive option to bike to work again, my beloved Mission Bicycle got stolen from the garage. I’m assuming that our neighbors left the garage door open again, just like last time, but this time I didn’t notice it until I went downstairs to go to work in the morning. My bike was long gone, and all the doors were closed. My helmet was strewn out in the middle of the floor. Other than that, no sign of the bike. But I think in this case, our neighbor just came back before I went downstairs, noticed their mistake, and closed the doors.
+
+We contacted our property manager and asked for a bike rack, just like our neighbor’s garage (in the same building – presumably they just complained enough to get a rack installed), but we haven’t heard anything back yet.
+
+The bike is registered here, so if you see it somewhere – let me (or the police) know!
+
+I really, really loved that bike. Unlike Bikey Red, which was a piece of crap and yet I loved because it was so endearing, this bike was amazing and nice and a pleasure to ride!
+
+I found this screencap from Morrowind randomly, and thought it was kind of funny that I even had it.
+
+All I remember about this screenshot is that I took it whilst lugging around a humongo Daedric War Axe that was worth a kabillion gold but weighed more than I did, so I was trying to find a vendor to unload it on ASAP. I think I was in Molag Mar.
+
+I was talking to that redhead Altmer about something, when suddenly that Ordinator ran up behind him and shouted at us to leave him alone or something. And then the Ordinator stood there staring at the Altmer forever. I think I thought it was the funniest thing so I took a picture.
+
+But whatever I found hilarious didn’t quite translate into the picture, as you can see.
+
+Somehow, Doc and I must have forgotten that today was Sunday Streets. Luckily, we had headed over to Ritual to hang out this morning, and we saw the road closures. Well, I just knew that this time I finally wanted to use the roller skates that I had purchased from Schauplatz at a previous Sunday Streets… years ago.
+
+So, after we finished at Ritual, we went home and got our skates! And spent the afternoon skating around at Sunday Streets. It was super fun. I was never very good at skating, and it has been years since I had done it, so it took a while for me to get back into it. But the whole time was still fun! I mean, if you need to learn/get comfortable with skating, there’s no better time than Sunday Streets. I also figure that’s the whole point of it.
+
+Also, a lot of people loved my skates. They commented on how they hadn’t seen skates like them for many years. Which makes sense, because they were skates from Schauplatz, which sells vintage stuff. Too bad I couldn’t do the skates justice. One day!
+
+Hooray!
+
+Today I hiked to Alamere Falls via Bear Valley Trail with Doc and Jon! It was a very beautiful and spectacular hike, ~15 miles in all. To be honest, our favourite part of the hike was the section of Bear Valley Trail about 4 miles in. There was a lot of steep sections, but the views were spectacular. However, on the way back, we skipped that section because it was so steep and instead took Stewert to Glen trails and it was much mellower, but less scenic.
+
+You may recall that I rolled a male Altmer Dragonborn recently just for the heck of it. Even though I still hadn’t finished sidequesting my female Dunmer Dragonborn into oblivion.
+
+Well, he is still having his many adventures. Just recently, he thought that maybe Nelacar would be nice to him because they were both Altmer. I figured Altmer must be nice to their own kind at least. But Nelacar was always so aloof and dismissive of him, just like how he is to any other race. Frankly, he was being kind of a jerk.
+
+So he gave up on being friends with Nelacar. Until one day the Dragonborn walked into the inn for some other business, and Nelacar immediately approached him saying, “When I saw this, I immediately thought of you! Take it as a token of my gratitude” and he pressed a Breton cookbook titled “Uncommon Taste” into the Dragonborn’s hands. Which surprised the Dragonborn because it was actually a really thoughtful gift, as well as a very kind and warm gesture.
+
+Now, I haven’t finished the Azura’s Star quest line yet (I don’t even think I’ve started it), and I didn’t really do anything for Nelacar that would make him like me. Part of me thinks this must be some sort of bug that set his affinity for him to very high. But another part of me likes to think that Nelacar and my Altmer Dragonborn actually are best buds, and that cold, aloof dismissal is how Altmer show their love. An Altmer behaving in a way that isn’t outright hostility is a sign of affection!
+
+And now I have to wonder, why did the cookbook make Nelacar think of the Dragonborn? Does he like cooking? Traveling? Eating exotic foods? Maybe the two of them should try to cook one of the recipes together sometime.
+
+GUISE. Our homemade brie turned out absolutely, deliciously amazing. I was so concerned after the earlier mishap and also because I had heard that you can get “totally adequate brie” by aging it in your fridge. But this tasted like amazing, high-end brie and was so ooey-gooey runny soft. Mmmmmmm. Add the fact that it was much easier than cheddar and doesn’t need to age as long, I will definitely be making brie again!
+
+Here are the previous two forms of the brie, by-the-way.
+
+I don’t know if I mentioned earlier, but one of the rounds of curds had a lot more moisture and was softer, whilst the other was much firmer. The instructions were kind of vague as to how firm they should be, so one I barely handled at all and the other I handled a lot when first flipping them in the forms.
+
+The soft runny one (somewhat visible in the foreground here) was extravagantly soft and very pungent and flavorful as a cheese, because the cheese ripens faster with higher moisture. It also had a lot more mottling on the rind because moisture kept seeping out throughout the ripening process. The firmer (the main focus in the photo) one was much milder in flavor, more like brie that you have probably tried before, but was still luxuriantly soft and gooey compared to most other bries I’ve had. Both were amazing, but it was good to see how the moisture content affected the final product.
+
+I found this fun yarn that looked like wildflowers on a green field, so I started making a fun scarf with it!
+
+We’ve already started enjoying the pickles that we started back in January. Thus far our favorite pickles came from the “spicy pickle grab bag” that had all the leftover vegetables that didn’t fit into the other jars, plus some habanero peppers that Doc bought for guacamole but I didn’t allow in the guacamole because I thought it’d be too spicy (and we put a jalapeño in the guac instead).
+
+Thus far I have been too scared to eat the pickled habaneros. I’m sure they’ve mellowed, but heck even those green beans which were pickling next to the habaneros turned out pretty darn spicy!
+
+Since it has only been about a month, I’m going to let these keep chugging along. I’m excited to see how they change as time goes on. As you might recall, my favorite sauerkraut was the “ancient sauerkraut” that we forgot about and ended up fermenting for over 6 months before consumption.
+
+I just got back from Iceland. I’ve been obsessed with Iceland for over 15 years now and have desperately wanted to visit, but I suppose I hadn’t had the same overlap of opportunity, means, time, etc until now.
+
+One thing that I was not expecting: the food in Iceland is amazing. Absolutely amazing. Like, anywhere you go. It doesn’t matter if it is a fancy restaurant, a truck stop in the middle of nowhere, a tourist trap, a dive, etc. All food in Iceland is amazing. It is like all the cooks went, “Yea, I know I’m a cook in a truck stop in the middle of nowhere and people are going to have to stop here no matter what, but dangit I’m a cook so I’m going to do my darndest and cook the best I can!” Even the gas station hotdogs were pretty darn good. It is amazing! How can the food be so universally good? I wonder if it is because it is all so fresh and free of hormones and preservatives, or if everybody just really takes cooking seriously, or some combo. Either way I’m not complaining.
+
+I also think that Iceland has the perfect weather. For me. I usually have a problem with feeling far too warm, and basically any time it gets over 75F I melt. Whenever I was outside, the temperature was perfect and I felt super comfortable. Now, I don’t like it miserably cold like way below freezing or anything. But it doesn’t really get miserably unbearably cold in Iceland. It doesn’t get as cold as New York or Minneapolis, for example, because it is warmed by the gulf stream. So I actually found the weather extremely pleasant. Especially after we’ve had what seem like endless heat waves in California >:(
+
+I liked the wilderness explorations as well as hanging out in the city. We structured the trip such that the first half of the trip we would do wilderness stuff, and then the second half of the trip we would just wander around Reykjavík and look at the shops and bars, etc. There are several backpacking trips that I am really interested in, which would require going back in the summer.
+
+Back in college, I actually started teaching myself to read and write Icelandic so I could read the sagas, but I only knew how to read and write it. I never learned to speak or hear it, and on this trip I have realized that the pronunciations are all completely different from how I had imagined they would be. There’s a lot for me to learn in order to speak it. So now I think my goal is to be able to learn enough of it to have very basic conversations by the time I go back again for my backpacking trips. I’ve already got most of the noun declension down from the reading/writing, so now it will be about ear training and pronunciations.
+
+I rolled an Altmer Dragonborn recently because… because.
+
+When he went to Markarth, he was almost immediately handed a note asking him to meet Eltrys at the secret shrine of Talos. And I just cracked up.
+
+I know that not all Altmer are Thalmor, but still. Maybe pause for a minute and think about what you’re doing, if some strange Altmer you’ve never seen before rolls up into town under mysterious pretenses, and your first impulse is to invite him to meet you at the local Talos shrine.
+
+Or, maybe, don’t invite ANY random strangers to meet you at the secret Talos shrine. Because you never know who’s been paid off by the Thalmor.
+
+So I’d like to think that my Dragonborn can’t help but wonder if he was being made fun of. So I drew this comic about it.
+
+Our homemade brie is successfully growing its furry little coat of mold! And just look at how different they look compared to when I first took the curds out of the forms!
+
+They’ve really flattened out. I didn’t even notice this until I looked back at that old post!
+
+However, I did hit a bit of a snag, which I think I should warn everybody about. I was following instructions from a zine that said, “when you see mold, wrap it in cheese paper” so I did just that. The zine then went on to describe all the terrible horrors that await the person who waits too long to wrap their cheese (and showed photos of drying mats tearing the mold off of the surface of the cheese, thereby ruining it). Nowhere did it mention it would be a problem to wrap the cheese too early.
+
+Turns out this was slightly misleading. I interpreted this to mean, “wrap the cheese as soon as you see even a microscopic hint of mold,” when actually what they meant was “once the cheese is completely covered with a thick blanket of mold.” The problem with covering the cheese with cheese paper as early as I did is that the moisture sitting on the cheese where the paper is touching it will actually inhibit the mold growth (which is ironic, as mold will also fail to form if there’s not enough moisture).
+
+Luckily, I was so excited to see how the mold was coming along that I unwrapped it to take a peek and noticed that the sides were covered with a luxurious coat, whilst the tops and bottoms were patchy-to-completely-bare. Concerned, I looked up a second opinion on brie making, and saw that the consensus was to wait until your brie is completely covered before wrapping it. Whoops! So I unwrapped them and returned them to the casserole dish that had previously been their mold-making home. There, I hoped they would still form the mold all over, as if I hadn’t ever wrapped them in paper.
+
+Luckily, it would appear that they have quickly recovered from this error, as you can see in the photo above (taken about a week after discovering my error). I don’t know what this means for the aging time, to be honest. I suppose I’ll have to feel it out. By the original estimates, they should be ready next week at the earliest, but they are supposed to age for ~4 weeks after getting wrapped so I think this moves things back a bit.
+
+So let this be a warning to all you would-be cheesemongers out there: wait until your brie is completely covered in mold before you wrap it in cheese paper, or meet the same fate! No matter what your zines say.
+
+I had a really stressful week, so of course as soon as the weekend rolled around I came down with a cold :(
+
+Pros: I got to play a lot of Morrowind without feeling guilty, because sick.
+
+Cons: Next week is shaping up to be also-stressful.
+
+I’ve gotten sucked into Morrowind lately, and I’ve had a lot of fun with that. I will say, though, that I had heard all the talk about how rude the native-Morrowind Dunmer are to outlanders, so I steeled myself for a poor reception. However, it seemed like everybody in Morrowind loved me instantly, and they were quite welcoming and kind. It even seemed like they were all bending over backwards to get me to like them. This surprised me. But I guess it must have had something to do with being a Dunmer bard born under the sign of The Lady. So not only was I the most charming charmer that ever lived, but I was also Dunmer and apparently you get disposition bonuses with characters that are the same race as you. I guess that would explain it.
+
+I also discovered pretty early on that I could get everybody’s disposition towards me up to 100/100 pretty quickly by flirting mercilessly with every single resident of Morrowind. I thought that was pretty hilarious.
+
+In other news, I also finally got Hearthfire for Skyrim. It is also quite addicting. However, a few things about it bummed me out:
+
+1 – I married Revyn Sadri, and Hearthfire appears to have glitched out some of his dialog. Now, whenever I even bring up the topic of moving somewhere, he starts shouting “THE SKY IS SO DARK! THE SKY IS SO DARK! WHY DOES THE SKY LOOK LIKE THAT? WHY DOES THE SKY LOOK LIKE THAT?” And on and on. It’s like, OK, I get it: you don’t want to move. You could have maybe told me in a more constructive way.
+
+2 – Revyn Sadri hates moving. I’m not just talking about the glitch in #1. He literally hates everywhere that isn’t Windhelm. He gets severely depressed and refuses to leave the house, and just sits there not doing anything. Plus he complains and complains forever about wherever he is that isn’t Windhelm. I mean, I kind of get this. I’d much prefer living in my tiny closet-sized apartment in San Francisco over living in a mansion anywhere else (for the same price), and Windhelm is pretty happening and walkable, soooo I can’t blame him for his. Plus, I can’t bear to see Sadri’s Used Wares shuttered 🙁 I’ve learned this lesson for my alt character, so he at least won’t be marrying anybody who can’t be a follower for this reason.
+
+3 – I can’t adopt a child. I figured, heck, I had a billion adults living in my homestead (I actually kind of like the idea that I have a bustling homestead full of people living there, like I’m some local lord. Which… I kind of am). So I decided to adopt a kid, and let my Steward and Housecarl take care of them. I didn’t even tell Revyn about it, because I assumed he’d just complain. But then, when I went to the house where I sent the kid, there was Revyn Sadri, sulking. Apparently, he somehow found out that I had adopted a child, and decided that it was unacceptable to leave a child to be raised by my steward and housecarl, so he moved into the house with her. Ostensibly to raise her and be a father? That was SORT OF sweet. Except, he didn’t seem to acknowledge or accept the child in any way. He just sulked around all day complaining about how much he hated living in the countryside, and that I was out of my mind for moving us there. So apparently, I can’t even adopt a child in Hearthfire, because the game won’t let me put a child in Revyn’s house, so the instant I adopt a child Revyn will shutter Sadri’s Used Wares and pack up for wherever I put the kid. And then become severely depressed.
+
+4 – Faendal, my steward, claimed the master bed in my Falkreath house. I don’t know why or how. In all my other houses, the steward and housecarl claimed the other beds down the hall from the master bed, which is appropriate. But not Faendal. He was too good for those beds I guess. The first time I went to bed in the Falkreath house, I woke up to Faendal standing there staring at me. I yelped and was freaked out, and I told him that was not an appropriate thing to do. Soon I discovered that he always did that, so I followed him for a while. It turns out he claimed the master bed, so if I’m sleeping in it, he gets confused and just stands there watching me sleep all night. I wish… I wish he didn’t do that. Hmm, maybe that’s another big reason why Revyn gets so depressed in that house. I tried fixing it by commanding him to sleep in his actual bed, but he only did that for as long as I was in command mode. As soon as I exited, he went back to the master bed. Oh, well.
+
+But, yep. I’m obsessed.
+
+After seeing “Star Wars: The Force Awakens,” we went home and I invented a drink called The Thirst Order (inspired by the movie). The movie was fun, and the drink was tasty. It has quickly become the new household favorite :)
+
+Now, I shall share it with you…
+
+If you want to copy and paste it, that is:
+
+The Thirst Order
+
+1 1/2 oz gin (we like Bummer and Lazarus)
+3/4 oz Saint Germaine
+3/4 oz lemon juice
+1/2 oz dry vermouth (we like Imbue’s Bittersweet Vermouth)
+2 dashes orange bitters (we like Regan’s Orange Bitters)
+2 raspberries
+absinthe rinse (we like Saint George)
+
+You don’t need to muddle the raspberries or anything, just shake with ice and that will mash them up just fine. And they make the drink so pretty and pink. I do suggest straining through a very fine-mesh strainer, though, unless you like seeds in your drink!
+
+The Thirst Order was inspired heavily by its predecessor, The Christine Special, which was, I believe: 1.5 oz gin, 0.5 oz dry vermouth, 0.5 oz Saint Germaine, with orange bitters. Clearly, the Christine Special was heavily inspired by its predecessor, the bijou, which was heavily inspired by its predecessor, the martini, and so on. I didn’t invent the bijou or the martini, by-the-way.
+
+Today, after the successes I’ve had with cheddar etc, I’ve decided to try my hand at mold-ripened cheese. This was inspired by reading that, if you don’t want to buy the Penicillium candidum, you can just use a piece of some other mold-ripened cheese (like brie or Camembert) to inoculate the new cheese. I thought that sounded easy, so I went ahead and tried it.
+
+So far, so good. Let us see how the mold grows!
+
+As you might recall, two months back I started some batches of cheddar. I was really curious to know how different the cheese would be using raw versus pasteurized milk, and whether I would be able to perceive that difference.
+
+It has now officially passed the minimum recommended time period to age the cheddar, so we cut one of each open to taste. I know that I said we had planned to wait four months before eating it, but I was just too curious. I mostly needed to know if it was a horrible disaster, but also I wanted to know if the two chesses were any different.
+
+I have to be honest, I wasn’t really expecting there to be a huge difference. I thought there would probably be some subtle, nuanced flavors in the raw cheese that the pasteurized cheese was lacking, but that they would be overall comparable.
+
+I. Was. Wrong.
+
+The two cheeses were incredibly different. Monumentally different. They tasted nothing like the same cheese. The raw milk cheddar was pungent, complex, flavorful, sharp and delicious. The pasteurized milk cheddar was also tasty, but much more understated and mild, and did not have a smell.
+
+I also gave the cheese to my siblings to try, and many of them pointed to the raw cheese and said “That one is amazing, what is the difference between them?”
+
+So, overall, the raw cheese seems to have won the popular vote. But I do still have a soft spot in my heart for the pasteurized cheese. It still tasted really good, at least as good as a nice store-bought cheddar.
+
+Why did they taste so different? Well, I can only imagine that it was a combination of the flavor changes introduced by the pasteurization process itself, but also because there was a much higher diversity of bacteria in the raw milk cheese. I did only add one species to the milks, after all, so the pasteurized milk cheddar was basically a monoculture.
+
+I think this had to have been a large contribution, because the difference was so clearly above and beyond the minor flavor changes that come from pasteurization. Such an unexpected result! But also, so exciting!
+
+I’ve had to spend the past week or so at Stanford, so I got to do things like explore the Rodin Garden with Doc.
+
+I also learned that “The Thinker” was originally supposed to be Dante, and then simply “The Poet,” as a part of the “Gates of Hell” piece. The name was changed, as Rodin felt that the “Dante’s Inferno” format was too constricting. I did not know that before!
+
+Well, I don’t really care about the holidays, but I really love autumn/winter flavors and ingredients. All the produce that is in season is delicious, and of course we are already on our second batch of homemade eggnog.
+
+Today, since Doc and I had already taken that cheese making class, I decided to make some farmhouse cheddar today!
+
+Since we are still experimenting with all the factors, Doc and I decided to make four little cheeses instead of one big cheese:
+
+These were the only variables, though. All cheese permutations were made from non-homogenized Jersey cow’s milk. I’m hoping that the pasteurized milk cheese tastes just as good as the raw milk cheese, because raw milk is incredibly expensive (makes sense why it would be, having a much shorter shelf life, but still).
+
+I could really tell the difference between the two milks, though. You need to add calcium chloride to pasteurized milk in order to use it for cheese, otherwise it won’t form a firm enough curd. So there’s that. But the pasteurized milk whey was a very bright brilliant yellow, whereas the raw milk curd was a much duller yellow, almost a greyish yellow in comparison. I do not know why this would be. You can see the color difference in the photos, but it seemed even more dramatic in person.
+
+When they’re done aging, we’ll taste them in side-by-side comparisons and decide if the raw milk is worth the extra cost. I wanted to age one of the test cheeses for over a year, but Doc suggested that since these are just tiny test cheeses, we should do a shorter aging process so we can start on the large-batch cheeses (to age over a year) sooner.
+
+The bacteria we used were lactococcus lactis subsp. lactis and lactococcus lactis subsp. cremoris. I’ve read that Streptococcus thermophilus is being used more and more in industrial cheddar production, but it wasn’t present in the little culture packet we bought.
+
+We’ll see how it turns out!
+
+Today Doc and I took Farmcurious’ “Three Cheeses in Three Hours with Wine” class and had a lot of fun. We made mozzarella, burrata, and goat cheese. Originally the class made ricotta instead of burrata, but due to popular demand it got changed.
+
+Doc wanted his cheese to be extra squeaky and rubbery, like the Wisconsin cheese curds often advertised as “The Squeakiest Cheese Curds Around!” and I think he got what he wanted.
+
+Another 24 Hour Comic Book Day has come and gone. This year I made a Tom Stoppard – inspired comic about Star Trek TOS from the perspective of the Redshirts. I didn’t like that I didn’t create my own original world for this one, but I did like telling the Redshirts’ story.
+
+And, similarly to how Stoppard’s Rosencrantz and Guildenstern are Dead works so well precisely because everybody knows Hamlet and is familiar with all the tropes, I didn’t have to establish the Star Trek tropes because it is assumed that everybody already knows them.
+
+I also liked drawing the Redshirts as super huge beefy guys, because they do work the security detail after all!
+
+This weekend, Doc and I went up to Sacramento for the Broken Strings Music Festival, and we decided to also camp at Folsom Lake SRA. Unsurprisingly the lake is really low right now. Like, really low.
+
+The sun-baked martian wasteland left behind in the lake bed was fun to explore, but perhaps not as fun as tubing around on a nice big lake.
+
+We still got to swim around in the American River, though. But let me tell you this: I am suspicious of fresh water. Like, ultra paranoid. Having grown up in and around oceans, I feel like swimming in fresh water can only ever lead to weird brain-eating amoebae or flesh-eating bacteria or blood sucking leeches or even blood-sucking fishes. This is what swimming in lakes and rivers means to me.
+
+I still swam around in the American River for an hour or two, though, and had a lot of fun. I wouldn’t shut up about leeches, though.
+
+I also ended up taking the Leaf on a mighty journey:
+
+111 miles each way. My original plan was to also go to Placerville for some climbing, but it was way too hot out there that climbing would have just been brutal and not fun, so Folsom was the end of the line for us this time. If we had gone to Placerville, that would have been ~136 miles each way.
+
+On the way there we only had to fast-charge once, in Vacaville, because I charged the Leaf to 100% at home the night before and I also had access to level 2 charging in Sacramento while we dorked around there. Although I should mention that ~80% of the level 2 charging stations in Sac-town are in garages which are CLOSED on the weekend. Which is… frustrating. Pretty much everything in that town closes for the weekend, because a lot of the government workers prefer to live in the Bay Area and they take the train to Sacramento every day and it turns into a ghost town whenever they don’t commute in. A weird side effect of being the state’s capitol, I guess.
+
+On the way home, however, I was unable to get the charge up to 100% at any point, so we had to charge twice: once in Davis and once in Vallejo. Oh, well. I had originally planned on using the level 2 charging to get it up to 100% for the ride home too, but alas we were running around so much doing other things that this didn’t really happen. Still it wasn’t too bad.
+
+Welp, I finally took the plunge and upgraded my PC to Windows 10. I haven’t used it much yet, but so far I like it better than Windows 8. And I liked being able to upgrade it the same way I upgrade Ubuntu; for free over the internet without it messing up my directory structure that it took me years to cultivate. Even the desktop remained the same! I mean, just in case I pulled everything off the desktop except for stuff I didn’t care about, but all that desktop stuff I didn’t care about remained in its place.
+
+As of yet, I can’t say much more about the operating system itself, other than it was the smoothest Windows upgrade I’ve ever done. All of the old Windows operating systems I had, I refused to upgrade until the machines running them straight up died, because I did not want to deal with the hassle. Man, I used Windows 95 FOREVER. It was actually kind of embarrassing.
+
+And it only took Windows becoming a dwindling brand, desperate to remain relevant, to make them improve the upgrade experience.
+
+I did actually like that cat riding a T-Rex with grabbers gif that they put out as Windows 10 promotional material, though. That was pretty cool.
+
+Wish me luck!
+
+So, today I discovered that you can go up in the observation tower of the DeYoung museum for free. Interesting!
+
+It seems like I discover something new every time I go to Golden Gate Park.
+
+This post is an update on our resident pheasant (from last week). I decided that I wanted to get a photo of the pheasant for this blog, but I was scared that he would attack me again.
+
+Nonetheless, on Monday I set out to see what kind of shot I could get, only to find that the pheasant was beat up pretty badly. I didn’t know if it was a car or what, but he was in a bad way. He didn’t even bother trying to attack me, he just sat there glaring at me, and occasionally hobbling around pathetically. I really felt bad for him. Even though I hated him, he did not deserve this. But it did make it easy to get a photo.
+
+I later found out that the pheasant had tried to attack another bicycle commuter, and got tangled in the spokes as it dove into the wheels for its attack. He says that he stopped immediately to try and free the pheasant, as it looked like its neck would snap. And as soon as it was freed it resumed attacking him, totally unphased.
+
+Throughout the week, I noticed that the pheasant had moved to a new location away from the road, and it seemed more skittish. It was a new bird. A humble pheasant, a sad pheasant, and a “oh cyclist how good it is to see you” pheasant. I felt really happy that it was doing better, and it seemed like this whole ordeal would really turn out to be for the better since it seemed to teach him not to attack everything.
+
+But then he got too healthy. And that stupid bird was waiting for me on the road Friday evening after work, and he chased me all the way up that damn hill again. I mean, for fuck’s sake! How did I ever feel sorry for that stupid bird?? Ugh.
+
+At the end of all things, we are destined to die at each others’ hands, locked in eternal combat.
+
+An evil pheasant of death has taken up residence at my work. This pheasant has been relentlessly attacking anybody and everybody that tries to get to work. It attacks cars, bicyclists, pedestrians, EVERYTHING. I’m honestly surprised that it isn’t dead yet.
+
+Normally I can outpace the pheasant when I’m on my bike, even going up the brutal hill that leads out of my work and back onto the main road. But last Friday the wind really picked up in the evening, and it was blowing straight down on me and almost pushing me back down the hill. I was halfway up the hill, making very slow time, but I hadn’t seen the pheasant yet so I thought I was free and clear.
+
+Then I saw it.
+
+As soon as I saw that pheasant, it started making a weird chortling sound at me. I started trying to go faster up the hill and I began to attack me. It untied my shoelaces (somehow) and pecked at me relentlessly, flapping its wings and diving in. I could not get away. I tried keeping the bike between myself and the bird, but it figured out how to dive between the wheels. I quickly moved the bike, and then saw that I had the pheasant pinned down with my bike tire on its neck. I immediately felt really bad, and without thinking pulled the bike back so it wasn’t on its neck anymore. But, of course, the pheasant didn’t care that I had showed it mercy and continued its attack as soon as my tire was off its neck. I finally managed to get away and once I was off the giant hill and on the main road, I easily escaped (even with the wind).
+
+I was grappling with how to deal with the pheasant whilst not killing it – indeed I even Googled the phrase “how to fight a pheasant,” but to no avail. But I did learn that pheasants are not native to California at all, so then all my sympathy for the animal vanished. I would probably be doing the environment a favor if I killed that pest. I think that if it attacks me again, I will fight to kill it. It is kind of funny how my whole viewpoint on the situation changed when I found out that pheasants were introduced.
+
+This is similar to the Reign of Turkey Terror that we had at my work a few years back, except that turkeys are bigger and meaner and totally native to the area. So, I guess what I’m saying is, I’m glad that at least it isn’t a turkey. Then I’d have to grapple with the ethics of fighting a native species.
+
+Well, I recently started another batch of sauerkraut! Let’s see how this one goes. Hopefully it is as good as the last one.
+
+This time, as you can see, I used purple cabbage and carrots as well as regular old cabbage.
+
+Doc and I successfully completed the Skyline-to-the-Sea trail! It was very relaxing, a lot of fun, and so very beautiful. Highlights included both the skyline, and the sea (if you can believe it).
+
+Inspired by this guy, we did the whole thing without cars and just public transported the whole thing. Thanks, guy! I had briefly considered doing what Doc and I termed the “Mega Gnar,” where we would take public transit to Saratoga and then hike the ~10 miles to Castle Rock. The one thing that kept us from doing the Mega Gnar was the fact that most of those 10 miles would be on spooky windy 1-lane roads with no shoulder. I couldn’t find a trail-alternative, and thus the Mega Gnar has yet to be hiked. We just ended up taking a Lyft to the trailhead instead.
+
+That really made planning the logistics of the trip easier. Ironically, it is much easier to get back to SF from Santa Cruz than it is to get from SF to the beginning of the trailhead (or indeed, even just from SF to Saratoga is way more complex). One thing that I noticed earlier when we did the Angel Island trip (and a few others), is that if you take public transit to your backpacking trip then people will think you are a hobo. This was still the case. FACT!
+
+For the first leg of the journey, the trail basically mirrors Highway 9. This means you get to see loads of dead cars that fell off the highway because of people that love going way too fast around windy blind corners! Joy! Guess how I feel about these people when I encounter them on the road.
+
+The second day, we woke up to the characteristic mists of the Redwood Rainforests, and we actually got to experience the redwood trees taking the fog and mist, and turning it into droplets of “rain” which they poured down onto their roots. It was absolutely magical.
+
+When we got to the Big Basin Park Headquarters at about 2PM on the second day, we had just barely been in the wilderness and sober for 24 hours. So, of course, when we saw they had beers in the park store, we bought six beers and immediately drank them all.
+
+It also turned out that Monday nights are Big Basin’s “Community Campfire Nights,” wherin they teach you about nature facts and provide marshmallows to roast (as well as a fire over which to roast them).
+
+This was quite fortunate, as I had pretty much assumed that since Jay’s Camp was right next to Big Basin Park Headquarters, we would have marshmallow roasting. It turns out that the backpacker camps at Jay’s do not allow fires (though the bicyclist camps do)! So we still got our marshmallow roasting on.
+
+Waddell Creek Beach was pretty cool. Lots of kite surfers and wind surfers and other windy… things going on. Of course, and we knew this before, the bus to Waddell Beach only GOES to Waddell Beach on the weekends! And we got there on a Tuesday, so we walked along Highway 1 until we were able to hitch a ride into Davenport. It was only six miles (of which we walked about 3), but it was kind of spooky walking along the very narrow shoulder of Highway 1, so we decided it was safer to hitch it. By-the-way, this six-mile portion would also be included in the Mega Gnar.
+
+Luckily for us, the amazing band Henhouse performs at the Davenport Roadhouse Inn every Tuesday night! They were so good, Doc and I just sat at the bar watching them perform all evening. I really felt lucky to be able to hear this group! They had a slide guitarist who was the most amazing musician ever.
+
+Then we went outside and watched the sun set. We got a room at the Davenport Roadhouse Inn so we could spend a full day at Santa Cruz on Wednesday.
+
+The slide guitarist of Henhouse told us that the planets were supposed to be lined up later that night, and it would be a very beautiful sight. As she said, it looked pretty spectacular, especially since the planets were also forming a line which looked parallel to the seashore.
+
+And if you ever wondered where cormorants go when it is night time, apparently they roost in the trees on the sea cliffs.
+
+In Santa Cruz we went to our favorite thrift shop, Moon Zoom, which I have been going to for… what must be at least 10 years now. I get so many amazing clothes from Moon Zoom. We also got to go to the Downtown Santa Cruz farmer’s market, where we bought and drank shots of sauerkraut juice. Because apparently that is a thing. It was surprisingly delicious and refreshing!
+
+I would rate this trail as very fun and beautiful, with enough to keep experienced backpackers entertained, but also straightforward enough (and keeps the gnarly to a minimum enough) for beginner backpackers (like Doc) to enjoy it, too.
+
+Today, Doc and I start walking to Santa Cruz! See you all later this week.
+
+This weekend, I wanted to go check out the Richmond branch of the Community Music Center, so Doc and I biked on over. Since we were so close to the Cliff House, Sutro Baths, and Land’s End, and the Legion of Honor we decided to go check all that out as well (especially since Doc had never been to the Cliff House or the Sutro Baths).
+
+I’ve always thought that snakeflies look like mini brontosauruses… with wings.
+
+With their long necks and ovipositors. And how they walk around, craning their necks. Super cute.
+
+I got to go kayaking on the Russian River for the first time this weekend! It was a lot of fun and it is much closer than I thought it was, I don’t know why I have never gone before.
+
+I had never noticed this monument/structure before in Golden Gate Park. No matter how much exploring I do, there’s always more exploring to do…
+
+After years of going to the Lost Horizon Night Market as an attendee, I finally attended as somebody working on a box truck! I helped Doc put together and perform for his Truckr truck.
+
+I got to make lots of throwies and put them in balloons. And do lots of interactive performance art. It was pretty exhausting, because our main goal was to get lots of people through the truck quickly. Fortunately, we seemed to succeed in this respect, and we got some good laughs out of people, so I would say this was a successful night market.
+
+There were lots of other great trucks this year, too, and the location was amazing. And, of course, we had a lot of super awesome people helping us with Truckr. Huzzah!
+
+Well campers, I have decided to do the Skyline-to-the-Sea Trail with Doc next month! I am super excited for this. Especially since we’ve also decided to get to/from the trail using public transportation! I briefly considered walking to the Castle Rock State Park entrance from Saratoga (~10 miles) and camping at the Castle Rock campgrounds (adding an extra day to the trip), but now I’m thinking we’ll just take a cab like this guy did. I had assumed that no cabbie would agree to take us to Castle Rock from Saratoga, but apparently it has been done.
+
+I don’t mind adding an extra 10 miles to the trip – indeed, that seems super fun. But I don’t like how cars tend to zip around those blind corners up towards Castle Rock, and we would probably be fearing for our lives walking on those roads.
+
+So now, we’re planning on adding an extra day by camping at Alder Trail Camp so we can spend a whole day frolicking around at Waddell Beach. Getting back to SF from Santa Cruz will be much, much smoother than getting from SF to Castle Rock (not least because that is a public transit trip that I have taken many, many times before).
+
+Unfortunately, the only bus that goes from Waddell Beach to the Santa Cruz Metro Center leaves at 5:15 pm, so we won’t really be able to spend a lot of time in Santa Cruz (I love that town). Unless any buddies will be in town and would want to meet us at Waddell Beach? Hit me up if this is the case.
+
+I will catalog my journey here, complete with photos and memoirs. We’re only planning on doing about 10 miles per day, because we want to do a leisurely pace and maybe even take some of the side-trails to take full advantage of the trip.
+
+There is a tree growing into Sightglass Coffee through a skylight and it is flowering. I there were a bunch of flowers on the floor, so I looked up and noticed the branch reaching in.
+
+I thought it was the cutest thing!
+
+I got tickets to see Korpiklaani, Einsiferum, and TrollfesT in May!
+
+When I was in college, I was really into folk metal. Like, really into it. As an extension of this, I also got into a few troll metal bands.
+
+I’ve always really liked Korpiklaani, but I have never actually seen them live, so I am pretty excited about this show. Shame I didn’t get around to seeing them before they had to replace Jaakko (their violinist) due to health issues.
+
+I mean, just look at this guy in the Wooden Pints video:
+
+I cannot stop watching that video, by-the-way. It is so… nonsensical. And bad. And for this, I love it.
+
+My synopsis: A man hacks into a stump with a hatchet. Another man pops out of an outhouse and starts playing a violin on his hip. He then periodically teleports back and forth between the outhouse and another location where the rest of the band is, including a man wailing on a single drum with a large branch. What is happening??
+
+Today my mother and her friend came to visit Doc and me in the Mission, and since my mother is vegan we went to Shizen Vegan Sushi Bar & Izakaya over on 14th street. It is a new restaurant in a new building, and we hadn’t actually even heard of it until we researched places we could go.
+
+One of the fun experiences we had at Shizen was ordering the “Surprise Ending” roll. This roll is served with 6 pieces of identical-looking beet sushi. While 5 of them are cool and mild, one of them is extremely spicy. Whoever gets the spicy piece gets to drink the shot of sake in the middle of the plate as… a prize? I guess?
+
+I actually got the spicy roll, and it was indeed very spicy. But not THAT bad. It wasn’t “I got covered in ghost pepper sauce and forgot to wash my hands” bad or anything. I’ve been trying to identify the spice source, and I think it was a kind of pepper (it was definitely not horseradish or wasabi or anything like that). It was also kind of vinegary. I’m not sure beyond that.
+
+Neither my mother nor her friend can stand even the mildest of spices, so we didn’t expect them to participate, but they did! They were both thankful that they didn’t get the spicy one, and I was grateful that I got to have the sake and the spicy roll, so I guess everybody won. Except Doc, who also kind of wanted to taste the spicy one. Next time, Doc!
+
+Doc and I love making up silly songs and singing them at each other as we walk around The Mission. If you made it out to the latest 8bitSF, you got to hear Doc and me sing one of these songs for you. A song titled “Please Do Not Give That to Me,” which I have transcribed for you here:
+
+Learn it. Know it. Live it. Then you’ll be all ready to sing along at our show for DEATH + TAXES + CHIPTUNES on April 15th.
+
+Originally the name of the composition was going to be “Don’t Give Me Dat” which is a closer approximation of how we sing it to each other as we walk down Valencia Street. But Doc and I cracked up at how formal and official the song looked when I started transcribing it into musical notation, that we thought it would be funnier to give it a stuffier-sounding name. Hence: “Please Do Not Give That to Me.”
+
+Well, daylight saving’s time is on again. It is no secret that I am no morning person, so I have a lot of trouble adjusting to daylight saving’s time. I really, really dislike it. It is also really important for me to have light in the morning so I can wake up and feel rested.
+
+This year I’ve tried staying up late last night and waking up early this morning so I’d be good and sleepy tonight. This is not a strategy that I have tried before, at least not as I can remember. I’ve been really, really sleepy all day today so it seems to be working thus far.
+
+I’m still not looking forward to tomorrow morning, though.
+
+I’ve started watching Star Trek: Enterprise recently, and it has dredged up all my all frustrations about Vulcans; specifically about how they are not at all logical. All the while being (probably) the least logical species in the universe, they claim that logic is central to their identities.
+
+Interestingly enough, Enterprise episode 17 “Fusion,” depicts Vulcans that think everybody has been interpreting the whole logic philosophy too literally and that a balance of emotion and logic is needed. Never mind that the two are not mutually exclusive. But the strange thing about these characters is that they mostly seemed much more logical than all the other Vulcans. Especially the way Tavin (one of the “emotional Vulcans”) talks about sex – he talks about it in such a precise, open and clinical way whilst other Vulcans are embarrassed by discussions of sex and are reticent to discuss it. Indeed, Tavin is so open about sex that the humans around him feel a bit uncomfortable. But we are supposed to believe that you can only be open and honest about sex if you are illogical and emotional? This enrages me.
+
+I know it is nothing new that TV (and movie) writers often misunderstand logic and how it works, but come on. I’ve also noticed that Vulcans seem to suffer a lot more from the problems of a monolithic patriarchy, compared to the human and Romulan societies as depicted. It seems to me that a purely logical society would have perfect gender equality, as subjugating one gender for the benefit of another is very illogical and harmful to the overall society. But that’s a subject for another post…
+
+Doc and I were up in Seattle this weekend. He was judging a yo-yo competition, whilst I was wandering around looking at things and exploring. And eating brunch. I ate a lot of brunch.
+
+It was fun exploring the city, but by far the best thing I got out of this trip (aside from seeing friends, of course) was a book. I had forgotten to bring a book to read on the flight, and I had forgotten my headphones so I couldn’t even listen to an audio book. So, literally the first thing I did after arriving in Seattle (after looking at all the flowers and things at Pike Place) was visit a cool little bookshop.
+
+Right away, Omon Ra caught my eye. It depicted what appeared to be the Ancient Egyptian god Ra, wearing a space suit. It is no secret that I have long been obsessed with Ancient Egypt: its culture, its way of life, its religion, its architecture, its writing, etc. And, he was wearing a space suit. Come on. I read the back, and it didn’t mention Egypt or Ra or gods, but it described a dark absurdist comedy about a young boy in Soviet Russia that dreams of being a cosmonaut.
+
+I read the first couple of pages, and I was immediately drawn in by its easy, whimsically poetic style. Not at all in the way that some poetic literature can be dense and difficult to parse, this read incredibly well.
+
+After seeing how quickly I fell into Pelevin’s writing, I bought the book and read it pretty quickly. It was an amazing book, and not what I was expecting (although I wasn’t exactly sure what I was expecting). I’m always on the hunt for more good books, and buying them randomly rarely works out. I end up with lots of duds that way (that I read anyway because I paid for them, damn it!), and usually I can only find good books via recommendation.
+
+So: thanks Seattle, for getting me to get this book!
+
+Also, it turns out that it was not a coincidence that the title of the book has “Ra” in it, and the cover depicts what appears to be Ra wearing a space suit. So that made me happy, too.
+
+But it is a coincidence that a blog post with “Set” in the title ended up talking about Ra (Set’s brother) so much. I set out just to talk about my trip in Seattle, and did not plan on talking about the book at all. I named it “Set in Seattle” as an inside-joke that my friends and I shared about the Ancient Egyptian god Set living in Seattle, and he starred in a sitcom called “Set in Seattle,” which was an intentional pun on the fact that the show was set in Seattle about Set in Seattle. OK, I’m not sure where I’m going with this anymore. You had to have been there.
+
+You may remember when I embarked on my lactic acid fermentation, back in September 2014. Soon after the kraut was sufficiently sour for my taste (a month-ish), we binged on sausages and kraut for quite some time. I even bought a new head of cabbage, and back-sloshed a new batch of sauerkraut with the old culture. Well, it was technically back-sloshing, in the most basic sense of the term.
+
+Back-sloshing is where you take some of the juice from your old culture and put it into a new culture. This speeds up the fermentation process, and produces a much more sour product. But instead of a dilution of 1:10 or anything like that, I just ate most of the sauerkraut out of the old culture, shredded up some more cabbage, and stuffed that into the same jar. The culture was technically diluted by the juice of the new cabbage, but that’s it. This back-sloshed kraut turned out super delicious, so we ate up most of that pretty quickly as well.
+
+But then, I guess we stopped eating at home as much or something, and the last little bit of Kraut was forgotten about and abandoned in the jar. And yet, I still thought it could be more sour, so I refused to move the kraut to the fridge. I left it in the cupboard until today. So, about 5 months. I finally decided to crack it open and finish it off today because Doc bought some sausages. I was a bit curious, and a bit hesitant, about this culture I dubbed “The Ancient Sauerkraut.”
+
+There was a huge film of beige sum on the top and on the bottom of the culture. But no mold, it looked like it was all just dead bacteria, so that was promising. Loads of dead bacteria. When I opened the lid of the jar, carbon dioxide bubbles burst to life, like they would when opening a beer. This surprised me, as I kept the water trap installed on the jar for the full 5 months, so I had assumed that any carbon dioxide would have escaped. But maybe the trap got jammed or gummed up with something? I guess it was a good thing I opened the Ancient Kraut now, before more pressure built up inside it.
+
+And then, there was the flavor. The flavor had transformed more in those 5 months than I would have imagined (based on the trajectory of flavor changes that I tasted over the course of a month or so). There were so many intensely fruity, light, complex flavors going on in that ancient kraut. I’m assuming these were the esters that I’d read can be produced in late-stage lactic acid fermentation. The kraut really wasn’t even all that sour anymore – or at least, that wasn’t the main taste. The flavor really blew me away; the Ancient Kraut was the most amazing, complex, and delicious sauerkraut I had ever tasted. Of course I’m keeping the juice, to back slosh some cultures in the future.
+
+And guess what? I also some some 5-month-old Ancient Brussels Sprouts and Carrots. Since the brussels sprouts had a high sulfur content, I had always found the fermented brussels sprouts’ flavor a bit more objectionable (and stanky) than the kraut, but now I am curious to see if they have been similarly transformed.
+
+Back over Thanksgiving weekend, Doc and I got obsessed with and binge-watched Attack on Titan. We are also huge fans of the Escape from the Room games, so of course we leapt at the opportunity to play the Attack on Titan themed escape game.
+
+Our group successfully escaped, and we had a lot of fun. Doc wanted to cosplay for the event, but we didn’t really pull that together in time. Meg did cosplay as Mikasa, though!
+
+Tomorrow marks my third anniversary with Doc, and since he gets to plan the odd numbers, he picked SF Tourist Day. Tourist day is a concept that we have discussed frequently, but still haven’t actually done. The idea is: we go around doing all the weird fun touristy things in San Francisco that we have never done before. Like renting those yellow go-karts, touring Alcatraz, checking out Coit Tower, riding segues in Golden Gate Park, et cetera.
+
+Doc also wants us to dress up in touristy SF shirts, and since he dressed up in roaring 20’s attire for me last year, I’m fine with going along with that. We actually found a fun SF hoodie at the Goodwill that I am excited about wearing now.
+
+After touristing around the city all day, we are planning on having dinner at the Commonwealth Club on Mission Street. That part maybe isn’t so touristy, but it was something we both wanted to do. But we did briefly consider the possibility of eating clam chowder at Pier 39 for dinner ;)
+
+The Golden Gate Bridge was closed to cars (for construction – they’ve FINALLY put that movable barrier on it), so we decided to bike to Sausalito today. It was a lot of fun, but of course lots of other people had the same idea, so the bridge was pretty packed. It was still super interesting to watch the construction workers do their thing!
+
+Also, lots of people were super determined to keep riding their bikes all the way across the bridge, which seemed crazy to me. The walking/biking path was packed full of people, so it didn’t really seem worth it to us. But! Lots of people did just that, nonetheless.
+
+I made way too many marshmallows. There is no way we will be able to eat them all. But this was the first time I made marshmallows so that was fun. They are pretty much like… whipped JELLO. If that makes sense.
+
+I also do not have a candy thermometer, so I decided to eyeball when it got to 240 degrees F, and that actually worked pretty well. When it just barely started boiling at first, I figured it was 212, and about 4 or 5 ish minutes after that it went from a frothy boiling to a more… clear boiling. And I figured that was 240 degrees. Whether it was or not, the marshmallows are marshmallow-ey and don’t seem to have suffered for the lack of a thermometer.
+
+I flavored them with vanilla and lavender. They’re pretty tasty, but we are going to be drinking hot cocoa for a long time to get rid of them all.
+
+Today we went to Redwood Regional Park near Oakland to see the ladybugs overwintering there. Starting in November, they fly inland to that are from the cost. Then they clump up in large masses in order to stay warm as they tough out the winter months (November through January).
+
+Welp, everybody will be happy to hear that we went camping on Angel Island, and did not get stranded there.
+
+We managed to hike every last inch of trail on the island, and see every last thing there was to see, in about 24 hours.
+
+There were way more deserted, crumbling buildings on the island than I had expected to see. I mostly expected nature trails and stuff. It was kind of creepy and Fallout-ish.
+
+It was all really easy hiking, but it was fun to see San Francisco and The Bay from a different perspective.
+
+Well, I got a chance to peek at the bacteria in my sauerkraut and sauerprouts jars! Just as I had expected, the kraut juice had a MUCH higher cell density than the sprouts. The sprout juice was like a desolate wasteland. I guess that’s the problem with putting whole sprouts in without chopping them… not enough sugars from the vegetables escape into the juice to feed the microbes. Looks like it might mostly be Lactobacillus bulgaricus and Leuconostoc mesenteroides in there.
+
+I’ve been fermenting a batch of cabbage to make sauerkraut, as well as a batch of Brussels sprouts to make (wait for it)… fermented Brussels sprouts. Yea, turns out there is not a special name for this delicacy.
+
+It has been 3 weeks of fermentation for these jars, and we tasted them for the first time last night. I really liked the Brussels sprouts, they were getting soft and sour and everything I had hoped for. Doc didn’t like the Brussels sprouts, he liked the sauerkraut better. I thought the sauerkraut was OK, but not nearly as far along as I would like. It was only slightly sour and still very crunchy and salty. Over time, as the juices get pulled out of the plant tissues, the culture gets less salty-tasting and the plant tissues get less crunchy. So salty saurkraut is often a sign of not-finished sauerkraut. I’m reserving judgment on the saurkraut for a few more weeks.
+
+Unlike homemade yogurt, where you pretty much have to add a starter culture (ie: mix in a little bit of already-made-yogurt into your milk), the process of fermenting vegetables feels way cooler because the lactic acid bacteria are commensurate with the vegetables, and are already hanging out on their surface. Waiting. All you do is make a super salty brine, plop your vegetables into the brine, and let the bacteria have at it for about four weeks (whenever you enjoy the taste, just move the jar to your fridge to slow/stop the fermentation – the longer the bacteria ferment, the more sour the vegetables will get).
+
+The main purpose of the brine is to suck the juices out of the vegetable tissues via diffusion. Basically, the brine is way saltier than the inside of the cabbage cells, which are housed in semi permeable membranes, and so the liquids get sucked out through the membrane as the outside and inside approach an equal ion concentration. And then your bacteria buddies go to town. It also happens that many of the lactic acid bacteria are halotolerant (salt-tolerant), so the brine also gives you the added benefit of inhibiting the growth of many pathogens and other agents of spoilage, whilst not hurting the lactic acid bacteria. Note that the lactic acid bacteria are not usually halophilic (halophilic organisms need high salt to live), so it is possible to ferment things without a brine (consider, if you will, sour beers and yogurts which are not salty), but you would run a high risk of spoilage.
+
+The lactic acid bacteria are non-respiring, which means that all they can do is ferment. Technically they are aerotolerant anaerobes, which means that oxygen does not kill them or harm them, but they don’t use the oxygen in any way. They don’t even notice the oxygen (or lack thereof). Since fermentation yields a lot less energy than respiration (which doesn’t always require oxygen, but let’s assume for simplicity’s sake that it does; especially since we are not likely to have loads of metals in our brine), fermenters can easily get out-competed in aerobic environments by oxygen respirers.
+
+So, to give my bacterial buddies a leg up on the competition, I sealed off the jars and put a vent system in with a water trap. Fermentation produces CO2, you see, and I didn’t want the jars to build up pressure to the point of explosion. I want to eat the sauerkraut, not blow up my kitchen with it. With this set-up, CO2 can leave through the vent, but no new oxygen can get in. This means, once the undesirable aerobic bacteria use up the tiny bit of oxygen left in the jar, they won’t be able to do anything else. They’d have to either switch to fermentation themselves (in the case of facultative anaerobes – bacteria that will use oxygen if present but will switch to fermentation in its absence), or sporulate to wait around for more oxygen, or just die. And there will be no more respiration out-competing fermentation.
+
+Lactic acid bacteria are a diverse bunch, spanning several genera and many of the species do slightly different things. They all ferment the sugars from the vegetable tissues, but some only make lactic acid, while other species might make other compounds in addition to lactic acid. You can even get esters and other weird things produced if you let the culture go on long enough, which can really contribute to a unique flavor.
+
+Supposedly the most common player in fermented vegetables is Lactobacillus plantarum, but I will attempt to identify the bacteria I have growing in my fermentation jars. Will they be monocultures? Will they be mind-bogglingly diverse? Will the Brussels sprouts have a completely different community compared to the cabbage? Obviously, different strains will be dominant at different stages in the fermentation.
+
+Stay tuned! I will share all of my results, and even some super awesome photos of the bacteria growing in my fermentation jars – taken with a microscope. Will they be coccoid? Bacilloid? Spirilloid? Probably not spirilloid, but still. WILL THEY BE ALL OF THE ABOVE? How will you handle the suspense?
+
+Well, this year has really flown by, and next weekend will be 24 Hour Comic Book Day 2014! It seems like just yesterday that I did my 2013 comic. Heck, I still haven’t even scanned my 2013 comic yet. Oops. Gotta get on that.
+
+To be honest, I am somewhat scared of the task this year. But I am also excited, so here goes nothing! It will be difficult to not think about comic ideas in the meantime, though. Good luck to everybody participating this year!
+
+I made the mistake of loading up Skyrim again, and of course it ate my life. I rolled a Dunmer female, and she is turning out to be a roguish mag user. She doesn’t care about the Stormcloaks or the Empire, and has thus far resisted their attempts to recruit her.
+
+She has married Revyn Sadri, the Dunmer shopkeep in the Gray Quarter. She used to go adventuring with Vorstag all the time, but the two of them kept getting weird looks every time they went into to New Gnisis Cornerclub for drinks, so now she goes adventuring with the Dunmer named Erandur. You know, the guy who used to worship Vaermina but now worships Mara and begs to be forgiven for his past worship of an evil Daedra.
+
+My character felt bad for Revyn having to spend all his time in the slums, so she moved him into Breezehome in Whiterun. Unfortunately, he became extremely depressed in Whiterun. Where Revyn had a lovely social life in Windhelm, going to visit his friends at the Cornerclub every night as he ate his dinner, in Whiterun he just sat inside all day long moping.
+
+He refused to even try to explore Whiterun! My character tried to explain to Revyn that he was a nobleman in Whiterun, being married to the Thane and all, and she pointed out that the Jarl’s housecarl was another high-ranking Dunmer like them, but nothing would cheer him up. He missed his friends and family in Windhelm. Revyn’s deepening depression made the my character depressed, so they moved back into the Gray Quarter in Windhelm and he cheered straight back up. That is where they live to this day. Basically, my character owns a bunch of nice houses that her husband refuses to live in because his heart is in the Gray Quarter slums.
+
+Oh, and my character hates Markarth. HATES Markarth. Especially that guy who never shuts up about that house.
+
+I finally got to bring Doc to Ring Mountain! If you have never been there, it is an area in Marin with fun bouldering and some great scenic views of the SF Bay area.
+
+I managed to get the last two Labor Day weekend backcountry permits for the section of the Ansel Adams Wilderness that I want to share with Doc. Hooray! That area is so unbelievably beautiful that it makes my heart ache.
+
+The last time I was backpacking in the area, it was to climb Mount Ritter. A gorgeous mountain surrounded by lakes and rugged beauty. This was also around Labor Day weekend, I believe. But: Ritter was a pretty technical mountain to climb, so Doc and I will just be milling about and enjoying the scenery. No mountaineering on this upcoming trip. I will mention, though, even if you don’t summit any mountains during your trip, this area is completely rewarding!
+
+On Monday, I learned more about farming than I ever really wanted to. Except not modern farming. This was like… Medieval farming. We had to plant 15,000 seeds by hand, and since I did not want to injure my back, I ended up doing squats more or less continuously for about 12 hours. My thighs were in agony for a week afterwards.
+
+I accidentally dropped my Nexus 4 off a cliff, and now its touch screen does not respond. I can see that I am getting calls/texts/etc, but I cannot interact with the phone in any meaningful way.
+
+The touchscreen has also become unglued, so I started pulling it away as far as it could go. This resulted in a snap, and some pretty cool glitch patterns.
+
+Here you see the touchscreen being removed from the rest of the phone (while the phone is still on, of course).
+
+Luckily I was able to get everything off of the phone, because everything is working perfectly… except the touch screen. It figures that the first phone I have ever destroyed also happens to be my first keyboardless phone.
+
+Here you see the glitch effects I caused by not caring about the phone anymore, since the touchscreen wouldn’t work anyway.
+
+Since the peeling off glitch screen is such a thing of beauty, Doc and I decided to photograph it and make smartphone wallpapers from it. The resulting glitch wallpaper looks absolutely beautiful on my Nexus 5.
+
+Here is the Nexus 5 with its glitchy Nexus 4 wallpaper. This is how it appears in its “locked” mode.
+
+Here is the Nexus 5 with its glitchy Nexus 4 wallpaper. This is how it appears in its “unlocked” mode.
+
+I gave some of the photos to Doc for him to touch up, and we plan on making the wallpapers available for anybody who wants to make their phones look like a Nexus 4 that got dropped off a cliff. Doc suggested taking an Android icon, and glitching it out as part of the wallpaper. I told him “That would be too confusing, unless you used an icon that I would never ever click on… like the Google+ icon.”
+
+This weekend, we found a mini bar cabinet on the street that we took home and set up. In order to do this, we had to organize the kitchen. Once it was set up, much of our pantry space that had previously been devoted to liquor bottles was freed up, making further organization even easier. This started a huge undertaking of finally organizing the rest of our apartment, and finally buying all the shelving and organization units that we have sorely needed. We even set up an entertainment center with five of our old gaming consoles (including the Vectrex). Now that the older consoles are set up, we will be more inclined to actually use our other consoles. Oh, the difference a few shelves can make.
+
+Today I decided to make pork buns. After investigating pork bun recipes, I decided to stuff the buns with coleslaw and Southern US-style barbeque pork, instead of the usual cabbage and Chinese-style barbeque pork. I slow cooked a rack of ribs with a basic rub (brown sugar, paprika, salt, pepper, cumin, garlic, onion, chili powder). Then I tore all the meat off the ribs, chopped it up, mixed it with coleslaw, and that was the filling that went into the buns.
+
+The final product was not too dissimilar to regular pork buns, I must say. While it certainly had good Southern barbeque flavor and the coleslaw flavor was noticeable, I suppose neither substitution was different enough from the original to have a wild and unexpected flavor. At the end of the day, the filling was still slow cooked pork and cabbage; they just had different seasonings on them.
+
+Despite my disappointment that they were not completely weird and wacky, they were still absolutely delicious and I enjoyed eating them. I do love pork buns, after all. I served them with an apricot barbeque sauce for dipping.
+

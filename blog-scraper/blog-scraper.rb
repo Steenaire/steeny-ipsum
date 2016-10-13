@@ -9,6 +9,7 @@ words_popularity_hash = {}
 probabilities_hash = {}
 
 randomizer_words_array = []
+opening_words_array = []
 
 File.open("blog.txt", 'r') do |file|
   file.each_line do |line|
@@ -24,6 +25,7 @@ File.open("blog.txt", 'r') do |file|
           words_hash["#{word}"] = [line_words_array[word_index+1]]
           words_popularity_hash["#{word}"] = 1
         end
+        opening_words_array << word if word_index == 0
       end
     end
   end
@@ -52,7 +54,7 @@ end
 #   end
 # end
 
-random_word = all_words_array.sample
+random_word = opening_words_array.sample
 
 print "#{random_word.capitalize} "
 500.times do
@@ -67,7 +69,7 @@ print "#{random_word.capitalize} "
     randomizer_words_array = []
   else
     puts "\n"
-    random_word = all_words_array.sample
+    random_word = opening_words_array.sample
     print "#{random_word.capitalize} "
   end
 end
