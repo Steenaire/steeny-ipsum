@@ -57,7 +57,7 @@ end
 random_word = opening_words_array.sample
 
 print "#{random_word.capitalize} "
-500.times do
+20.times do
   if probabilities_hash[random_word]
     probabilities_hash[random_word].each do |following_word, probability|
       probability.times do
@@ -65,7 +65,7 @@ print "#{random_word.capitalize} "
       end
     end
     random_word = randomizer_words_array.sample
-    print "#{random_word} "
+    print "#{random_word.chomp(')').chomp('(')} "
     randomizer_words_array = []
   else
     puts "\n"
