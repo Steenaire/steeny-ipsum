@@ -34,7 +34,7 @@ end
 words_hash.each do |word, following_words|
   # file.write("#{word}\t#{following_words}\n")
   following_words.each do |following_word|
-    float_holder = 1.to_f/following_words.length.to_f
+    # float_holder = 1.to_f/following_words.length.to_f
     if probabilities_hash["#{word}"]
       if probabilities_hash["#{word}"]["#{following_word}"]
         probabilities_hash["#{word}"]["#{following_word}"] += 1
